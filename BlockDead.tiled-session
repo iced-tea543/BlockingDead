@@ -1,0 +1,64 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "BlockDead.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "BlockDead.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 503,
+                "y": 140.5
+            }
+        },
+        "Resource.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.125
+        },
+        "hu.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.125,
+            "scaleInEditor": 0.75
+        },
+        "未命名.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3136,
+                "y": 2018
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Desktop/BlockDead",
+    "last.imagePath": "C:/Desktop/BlockDead/2D HD Zombie Rural Tileset/Isometric Tiles",
+    "map.fixedSize": true,
+    "map.height": 200,
+    "map.lastUsedExportFilter": "CSV 文件 (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": "3",
+    "map.tileHeight": 64,
+    "map.tileWidth": 128,
+    "map.width": 200,
+    "openFiles": [
+        "BlockDead.tmx"
+    ],
+    "project": "BlockDead.tiled-project",
+    "recentFiles": [
+        "BlockDead.tmx",
+        "test.tsx",
+        "未命名.tmx",
+        "hu.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.type": 1
+}
