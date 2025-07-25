@@ -3,6 +3,8 @@ import os
 
 from utility import *
 
+import models.DataManager
+
 camera_offset_x = -(400-64)
 camera_offset_y = -(300-64)
 
@@ -28,7 +30,7 @@ class Entity(pygame.sprite.Sprite):
             self.spriteSheet[fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(self.animationDir, fileName)).convert_alpha()
 
     def move(self, dx, dy):
-        print(self.getPosition())
+
         self.position[0] += dx
         self.position[1] += dy
 
@@ -62,8 +64,6 @@ class Entity(pygame.sprite.Sprite):
             self.frameIndex = (self.frameIndex + 1) % 15
             rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
             self.image = self.spriteSheet[self.animationIndex].subsurface(rect)
-
-
             self.image = self.image.subsurface(40, 35, 70, 55)
 
             self.rect = self.image.get_rect()

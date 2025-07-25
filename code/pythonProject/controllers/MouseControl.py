@@ -40,20 +40,20 @@ def keyUpdate():
         models.EntityManager.mainCharacter.setDirection(4)
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
 
-        models.EntityManager.mainCharacter.move(-0.001, 0)
-        views.Entity.camera_offset_x-= 128 * 0.001
+        models.EntityManager.mainCharacter.move(-0.005, 0)
+        views.Entity.camera_offset_x-= 128 * 0.005
     elif keys[pygame.K_RIGHT]:
         models.EntityManager.mainCharacter.direction = 0
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
-        models.EntityManager.mainCharacter.move(0.001, 0)
-        views.Entity.camera_offset_x+= 128 * 0.001
+        models.EntityManager.mainCharacter.move(0.005, 0)
+        views.Entity.camera_offset_x+= 128 * 0.005
     elif keys[pygame.K_UP]:
         models.EntityManager.mainCharacter.direction = 6
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
-        models.EntityManager.mainCharacter.move(0, -0.002)
-        views.Entity.camera_offset_y -= 64 * 0.002
+        models.EntityManager.mainCharacter.move(0, -0.01)
+        views.Entity.camera_offset_y -= 64 * 0.005
     elif keys[pygame.K_DOWN]:
         models.EntityManager.mainCharacter.direction = 2
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
-        models.EntityManager.mainCharacter.move(0, 0.002)
-        views.Entity.camera_offset_y += 64 * 0.002
+        models.EntityManager.mainCharacter.move(0, 0.01)
+        views.Entity.camera_offset_y += 64 * 0.005

@@ -1,6 +1,5 @@
 from views.Entity import Entity
 
-
 class Creature(Entity):
     def __init__(self, animationDir, healthMax, position):
         super().__init__(animationDir, 'Idle', 50, position)
@@ -13,10 +12,6 @@ class Player(Creature):
     def update(self):
         super().update()
 
-class Zombie(Creature):
-    def __init__(self, animationDir):
-        super().__init__(animationDir, 6, [0, 0])
-
-    def spawn(self):
-        pass
-
+    def move(self, dx, dy):
+        super().move(dx, dy)
+        print(self.position)

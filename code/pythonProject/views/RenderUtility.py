@@ -1,7 +1,6 @@
 import pygame
 
 from utility import iso_to_screen_staggered
-import views.Entity
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600

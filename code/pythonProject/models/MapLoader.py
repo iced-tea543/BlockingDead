@@ -37,12 +37,9 @@ class GameMap:
                             logging.StreamHandler()
                         ]
                     )
-                    contentStartY = findFirstPixelY(tileImageRaw)
-                    contentStartX = findFirstPixelX(tileImageRaw)
-                    TILE_IMAGE_PIXEL_WIDTH = findLastPixelX(tileImageRaw) - contentStartX
-                    TILE_IMAGE_PIXEL_HEIGHT = findLastPixelY(tileImageRaw) - contentStartY
-
-                    tileImage = tileImageRaw.subsurface(contentStartX, contentStartY, TILE_IMAGE_PIXEL_WIDTH,
+                    TILE_IMAGE_PIXEL_WIDTH = RAW_IMAGE_WIDTH
+                    TILE_IMAGE_PIXEL_HEIGHT = RAW_IMAGE_HEIGHT - content_start_y
+                    tileImage = tileImageRaw.subsurface(0, content_start_y, TILE_IMAGE_PIXEL_WIDTH,
                                                            TILE_IMAGE_PIXEL_HEIGHT)
                     print(x, y, self.TSX[tileID])
                     self.tileToDraw.append((x, y, tileImage, TILE_IMAGE_PIXEL_WIDTH, TILE_IMAGE_PIXEL_HEIGHT))
