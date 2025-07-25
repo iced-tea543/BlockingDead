@@ -34,6 +34,22 @@ class Entity(pygame.sprite.Sprite):
         self.position[0] += dx
         self.position[1] += dy
 
+        flag = False
+        for p1, p2 in models.DataManager.boundaries:
+            if pointOnLine(p1, p2, self.position):
+                flag = True
+
+        if flag:
+            self.position[0] -= dx
+            self.position[1] -= dy
+            return False
+
+        self.updateScreenPosition()
+        return True
+    
+    def setPosition(self, position):
+        self.position[0] = position[0]
+        self.position[1] = position[1]
         self.updateScreenPosition()
 
     def updateScreenPosition(self):
@@ -50,7 +66,7 @@ class Entity(pygame.sprite.Sprite):
         self.rect.x = int(screenX)
         self.rect.y = int(screenY - (128 - 64))
 
-    def getPosition(self):
+    def getScreenPosition(self):
         actualX = self.position[0]
 
         if int(self.position[1]) % 2 != 0:
@@ -68,7 +84,6 @@ class Entity(pygame.sprite.Sprite):
 
             self.rect = self.image.get_rect()
 
-        # 更新屏幕位置
         self.updateScreenPosition()
 
     def setAnimationIndex(self, animationIndex):

@@ -3,13 +3,9 @@
 from views.RenderUtility import *
 BLACK = (0, 0, 0)
 
-print(iso_to_screen_staggered(1, 3, 128, 64))
-
 pygame.init()
 pygame.display.set_caption("2.5D Pygame Example with Camera (Tiled Isometric Staggered + CSV)")
 
-
-Y_DRAW_CORRECTION = 0
 running = True
 import models.DataManager
 import models.EntityManager
@@ -24,17 +20,24 @@ while running:
     renderMap(models.DataManager.map.tileToDraw, views.Entity.camera_offset_x, views.Entity.camera_offset_y)
 
     models.EntityManager.mainCharacter.update()
-    models.EntityManager.testZombie.update()
+    #models.EntityManager.testZombie.update()
+
+
+    playerX, playerY = models.EntityManager.mainCharacter.getScreenPosition()
+
+    drawRoof = False
+
+
 
     renderMap(decorTiles\
-              + [(models.EntityManager.mainCharacter.getPosition()[0], models.EntityManager.mainCharacter.getPosition()[1],
+              + [(playerX, playerY,
                   models.EntityManager.mainCharacter.image, 70, 55),
-                 ((models.EntityManager.testZombie.getPosition()[0], models.EntityManager.testZombie.getPosition()[1],
-                             models.EntityManager.testZombie.image, 70, 55))
-                 ], views.Entity.camera_offset_x, views.Entity.camera_offset_y)
+                 #((models.EntityManager.testZombie.getPosition()[0], models.EntityManager.testZombie.getPosition()[1],
+                  #           models.EntityManager.testZombie.image, 70, 55))
+                 ]+models.DataManager.house.tileToDraw
+                 , views.Entity.camera_offset_x, views.Entity.camera_offset_y)
 
-
-    renderMap(models.DataManager.house.tileToDraw, views.Entity.camera_offset_x, views.Entity.camera_offset_y)
+    renderMap(models.DataManager.roof.tileToDraw, views.Entity.camera_offset_x, views.Entity.camera_offset_y)
 
 
     # surface = pygame.Surface((800, 600), pygame.SRCALPHA)

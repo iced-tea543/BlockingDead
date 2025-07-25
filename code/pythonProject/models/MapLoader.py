@@ -6,14 +6,14 @@ from utility import *
 
 
 class GameMap:
-    def __init__(self, TSXaddr, mapAddr):
+    def __init__(self, TSXaddr, mapAddr, lastPixelY=None):
         self.tile_images = {}  # tile ID -> pygame.Surface
         self.tileToDraw = []
         self.TSX = loadTSX(TSXaddr)
         self.map = loadMapFromCSV(mapAddr)
-        self.loadMap()
+        self.loadMap(lastPixelY)
 
-    def loadMap(self):
+    def loadMap(self, lastPixelY=None):
 
         MAP_SIZE_X = len(self.map[0])
         MAP_SIZE_Y = len(self.map)
@@ -37,8 +37,9 @@ class GameMap:
                             logging.StreamHandler()
                         ]
                     )
+                    content_start_y = findFirstPixelY(tileImageRaw)
                     TILE_IMAGE_PIXEL_WIDTH = RAW_IMAGE_WIDTH
-                    TILE_IMAGE_PIXEL_HEIGHT = RAW_IMAGE_HEIGHT - content_start_y
+                    TILE_IMAGE_PIXEL_HEIGHT = (RAW_IMAGE_HEIGHT if lastPixelY != -1 else findLastPixelY(tileImageRaw)) - content_start_y - (0 if lastPixelY == None or lastPixelY == -1 else lastPixelY)
                     tileImage = tileImageRaw.subsurface(0, content_start_y, TILE_IMAGE_PIXEL_WIDTH,
                                                            TILE_IMAGE_PIXEL_HEIGHT)
                     print(x, y, self.TSX[tileID])

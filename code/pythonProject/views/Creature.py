@@ -13,5 +13,5 @@ class Player(Creature):
         super().update()
 
     def move(self, dx, dy):
-        super().move(dx, dy)
         print(self.position)
+        return super().move(dx, dy)
