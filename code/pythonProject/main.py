@@ -9,35 +9,33 @@ pygame.display.set_caption("2.5D Pygame Example with Camera (Tiled Isometric Sta
 running = True
 import models.DataManager
 import models.EntityManager
+models.EntityManager.spawnZombie((0, 2))
 from controllers.MouseControl import mouseUpdate, keyUpdate
 
 import views.Entity
 
-decorTiles = models.DataManager.decor.tileToDraw
 
 while running:
     clearScreen()
-    renderMap(models.DataManager.map.tileToDraw, views.Entity.camera_offset_x, views.Entity.camera_offset_y)
+    renderMap(models.DataManager.tile.tileToDraw, models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY)
 
     models.EntityManager.mainCharacter.update()
+    models.EntityManager.updateZombies()
     #models.EntityManager.testZombie.update()
+
+    allTiles = models.DataManager.decor.tileToDraw + models.DataManager.house.tileToDraw
 
 
     playerX, playerY = models.EntityManager.mainCharacter.getScreenPosition()
 
-    drawRoof = False
+    for zombie in models.EntityManager.zombies:
+        allTiles.append((zombie.getScreenPosition()[0], zombie.getScreenPosition()[1], zombie.image, 70, 55))
 
+    allTiles.append((playerX, playerY, models.EntityManager.mainCharacter.image, 70, 55))
 
+    renderMap(allTiles, models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY)
 
-    renderMap(decorTiles\
-              + [(playerX, playerY,
-                  models.EntityManager.mainCharacter.image, 70, 55),
-                 #((models.EntityManager.testZombie.getPosition()[0], models.EntityManager.testZombie.getPosition()[1],
-                  #           models.EntityManager.testZombie.image, 70, 55))
-                 ]+models.DataManager.house.tileToDraw
-                 , views.Entity.camera_offset_x, views.Entity.camera_offset_y)
-
-    renderMap(models.DataManager.roof.tileToDraw, views.Entity.camera_offset_x, views.Entity.camera_offset_y)
+    renderMap(models.DataManager.roof.tileToDraw, models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY)
 
 
     # surface = pygame.Surface((800, 600), pygame.SRCALPHA)

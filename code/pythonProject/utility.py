@@ -60,5 +60,36 @@ def pointOnLine(start, end, point):
     numerator = abs((y2 - y1)*x0 - (x2 - x1)*y0 + x2*y1 - y2*x1)
     denominator = math.hypot(y2 - y1, x2 - x1)
     dist = numerator / denominator if denominator != 0 else float('inf')
-    print(dist)
     return dist < delta
+
+import queue
+
+def bfs(start, end, blockers):
+    start = (int(start[0] + 0.5), int(start[1] + 0.5))
+    end = (int(end[0] + 0.5), int(end[1] + 0.5))
+    q = queue.Queue()
+    q.put(start)
+    visited = set()
+    visited.add(start)
+    parent = {start: None}
+
+    while not q.empty():
+        current = q.get()
+        if current == end:
+            path = []
+            while parent[current] is not None:
+                path.append((current[0] - parent[current][0], current[1] - parent[current][1]))
+                current = parent[current]
+            return path[::-1]
+
+
+        for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+            neighbor = (current[0] + dx, current[1] + dy)
+            if not(0 <= neighbor[0] < 50 and 0 <= neighbor[1] < 50):
+                continue
+            if neighbor not in visited and neighbor not in blockers:
+                q.put(neighbor)
+                parent[neighbor] = current
+                visited.add(neighbor)
+
+    return None

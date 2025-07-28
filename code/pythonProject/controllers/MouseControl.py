@@ -28,8 +28,8 @@ def mouseUpdate():
         models.EntityManager.mainCharacter.animationIndex = 'Run'
         models.EntityManager.mainCharacter.direction = int(angle_deg / 45 + 8 if angle_deg / 45 < 0 else angle_deg / 45)
 
-        views.Entity.camera_offset_x += directions[models.EntityManager.mainCharacter.direction][0]
-        views.Entity.camera_offset_y += directions[models.EntityManager.mainCharacter.direction][1]
+        models.DataManager.cameraOffsetX += directions[models.EntityManager.mainCharacter.direction][0]
+        models.DataManager.cameraOffsetY += directions[models.EntityManager.mainCharacter.direction][1]
 
     else:
         models.EntityManager.mainCharacter.animationIndex = 'Idle'
@@ -41,19 +41,23 @@ def keyUpdate():
         models.EntityManager.mainCharacter.setDirection(4)
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
         if models.EntityManager.mainCharacter.move(-speed, 0):
-            views.Entity.camera_offset_x-= 128 * speed
+            models.DataManager.cameraOffsetX-= 128 * speed
+        models.EntityManager.updateZombieRoutes()
     elif keys[pygame.K_RIGHT]:
         models.EntityManager.mainCharacter.direction = 0
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
         if models.EntityManager.mainCharacter.move(speed, 0):
-            views.Entity.camera_offset_x+= 128 * speed
+            models.DataManager.cameraOffsetX+= 128 * speed
+        models.EntityManager.updateZombieRoutes()
     elif keys[pygame.K_UP]:
         models.EntityManager.mainCharacter.direction = 6
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
         if models.EntityManager.mainCharacter.move(0, -speed*2):
-            views.Entity.camera_offset_y -= 64 * speed
+            models.DataManager.cameraOffsetY -= 64 * speed
+        models.EntityManager.updateZombieRoutes()
     elif keys[pygame.K_DOWN]:
         models.EntityManager.mainCharacter.direction = 2
         models.EntityManager.mainCharacter.setAnimationIndex('Run')
         if models.EntityManager.mainCharacter.move(0, speed*2):
-            views.Entity.camera_offset_y += 64 * speed
+            models.DataManager.cameraOffsetY += 64 * speed
+        models.EntityManager.updateZombieRoutes()

@@ -3,10 +3,24 @@ import pygame
 from views.Creature import *
 from views.Zombie import *
 
-allSprites = pygame.sprite.OrderedUpdates()
-
 mainCharacter = Player(r'C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\Survivor 2')
 
 #testZombie = Zombie(r"C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\RuralZombie 1")
 
-allSprites.add(mainCharacter)
+
+zombies = []
+
+def spawnZombie(postion=[0, 0]):
+    zombie = Zombie(r"C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\RuralZombie 1",postion)
+    zombie.updateRoute()
+    zombies.append(zombie)
+
+def updateZombies():
+    for zombie in zombies:
+        zombie.update()
+        #if zombie.isDead():
+        #    zombies.remove(zombie)
+
+def updateZombieRoutes():
+    for zombie in zombies:
+        zombie.updateRoute()

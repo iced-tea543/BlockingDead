@@ -30,6 +30,14 @@ class Entity(pygame.sprite.Sprite):
             self.spriteSheet[fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(self.animationDir, fileName)).convert_alpha()
 
     def move(self, dx, dy):
+        if dx > 0:
+            self.direction = 0
+        elif dy > 0:
+            self.direction = 2
+        elif dx < 0:
+            self.direction = 4
+        elif dy < 0:
+            self.direction = 6
 
         self.position[0] += dx
         self.position[1] += dy
@@ -60,7 +68,7 @@ class Entity(pygame.sprite.Sprite):
 
         screenX, screenY = iso_to_screen_staggered(
             actualX, self.position[1], 128, 128,
-            camera_offset_x, camera_offset_y
+            models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY
         )
 
         self.rect.x = int(screenX)
