@@ -1,7 +1,6 @@
 #r"C:\Desktop\BlockDead\2D HD Zombie City Tileset\Isometric Tiles\Ground A1_E.png
 
 from views.RenderUtility import *
-BLACK = (0, 0, 0)
 
 pygame.init()
 pygame.display.set_caption("2.5D Pygame Example with Camera (Tiled Isometric Staggered + CSV)")
@@ -11,9 +10,6 @@ import models.DataManager
 import models.EntityManager
 models.EntityManager.spawnZombie((0, 2))
 from controllers.MouseControl import mouseUpdate, keyUpdate
-
-import views.Entity
-
 
 while running:
     clearScreen()

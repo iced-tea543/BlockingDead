@@ -16,28 +16,22 @@ class Entity(pygame.sprite.Sprite):
         self.animationIndex = animationIndex
         self.animationSpeed = animationSpeed
 
-        self.spriteSheet = {}
+        #self.spriteSheet = {}
         self.direction = 0
         self.frameIndex = 0
         self.lastUpdateTime = pygame.time.get_ticks()
 
-        self.loadAnimation()
+        #self.loadAnimation()
+        
+        self.updateAnimation()
 
         self.position = [int(position[0]), int(position[1])]
 
-    def loadAnimation(self):
-        for fileName in os.listdir(self.animationDir):
-            self.spriteSheet[fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(self.animationDir, fileName)).convert_alpha()
+    #def loadAnimation(self):
+    #    for fileName in os.listdir(self.animationDir):
+    #       self.spriteSheet[fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(self.animationDir, fileName)).convert_alpha()
 
     def move(self, dx, dy):
-        if dx > 0:
-            self.direction = 0
-        elif dy > 0:
-            self.direction = 2
-        elif dx < 0:
-            self.direction = 4
-        elif dy < 0:
-            self.direction = 6
 
         self.position[0] += dx
         self.position[1] += dy
@@ -52,13 +46,13 @@ class Entity(pygame.sprite.Sprite):
             self.position[1] -= dy
             return False
 
-        self.updateScreenPosition()
+        #self.updateScreenPosition()
         return True
     
     def setPosition(self, position):
         self.position[0] = position[0]
         self.position[1] = position[1]
-        self.updateScreenPosition()
+        #self.updateScreenPosition()
 
     def updateScreenPosition(self):
         actualX = self.position[0]
@@ -81,18 +75,21 @@ class Entity(pygame.sprite.Sprite):
             actualX -= 0.5
         return (actualX, self.position[1])
 
+    def updateAnimation(self):
+        rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
+        self.image = models.DataManager.spriteSheet[self.animationDir][self.animationIndex].subsurface(rect)
+        self.image = self.image.subsurface(40, 35, 70, 55)
+
     def update(self):
         now = pygame.time.get_ticks()
         if now - self.lastUpdateTime >= self.animationSpeed:
             self.lastUpdateTime = now
             self.frameIndex = (self.frameIndex + 1) % 15
-            rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
-            self.image = self.spriteSheet[self.animationIndex].subsurface(rect)
-            self.image = self.image.subsurface(40, 35, 70, 55)
+            self.updateAnimation()
 
             self.rect = self.image.get_rect()
 
-        self.updateScreenPosition()
+        #self.updateScreenPosition()
 
     def setAnimationIndex(self, animationIndex):
         self.animationIndex = animationIndex

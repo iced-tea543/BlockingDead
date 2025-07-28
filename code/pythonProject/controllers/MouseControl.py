@@ -1,38 +1,41 @@
 import math
+from utility import distance
 
 import pygame
 
 import models.EntityManager
 import views.Entity
 
-CAMERA_SPEED = 0.2
+characterSpeed = 0.003
 directions = [
-    (CAMERA_SPEED, 0),
-    (CAMERA_SPEED / 2**0.5, CAMERA_SPEED / 2**0.5),
-    (0, CAMERA_SPEED),
-    (-CAMERA_SPEED / 2**0.5, CAMERA_SPEED / 2**0.5),
-    (-CAMERA_SPEED, 0),
-    (-CAMERA_SPEED / 2**0.5, -CAMERA_SPEED / 2**0.5),
-    (0, -CAMERA_SPEED),
-    (CAMERA_SPEED / 2**0.5, -CAMERA_SPEED / 2**0.5),
+    (characterSpeed, 0),
+    (characterSpeed / 2**0.5, characterSpeed / 2**0.5),
+    (0, characterSpeed),
+    (-characterSpeed / 2**0.5, characterSpeed / 2**0.5),
+    (-characterSpeed, 0),
+    (-characterSpeed / 2**0.5, -characterSpeed / 2**0.5),
+    (0, -characterSpeed),
+    (characterSpeed / 2**0.5, -characterSpeed / 2**0.5),
 ]
 
 def mouseUpdate():
-    if pygame.mouse.get_pressed()[0]:
-        mousePosition = pygame.mouse.get_pos()
-        dx, dy = mousePosition[0] - 400, mousePosition[1] - 300
+    mousePosition = pygame.mouse.get_pos()
+    dx, dy = mousePosition[0] - 400, mousePosition[1] - 300
 
-        angle_rad = math.atan2(dy, dx)
-        angle_deg = math.degrees(angle_rad)
+    angle_rad = math.atan2(dy, dx)
+    angle_deg = math.degrees(angle_rad)
 
+    if distance((400, 300), mousePosition) < 50:
+        models.EntityManager.mainCharacter.animationIndex = 'Idle'
+    else:
         models.EntityManager.mainCharacter.animationIndex = 'Run'
         models.EntityManager.mainCharacter.direction = int(angle_deg / 45 + 8 if angle_deg / 45 < 0 else angle_deg / 45)
+        # print(f"Move: {directions[models.EntityManager.mainCharacter.direction]} pixels, direction: {models.EntityManager.mainCharacter.direction}")
+        if models.EntityManager.mainCharacter.move(directions[models.EntityManager.mainCharacter.direction][0], directions[models.EntityManager.mainCharacter.direction][1] * 2):
+            models.DataManager.cameraOffsetX += directions[models.EntityManager.mainCharacter.direction][0] * 128
+            models.DataManager.cameraOffsetY += directions[models.EntityManager.mainCharacter.direction][1] * 64
+        models.EntityManager.updateZombieRoutes()
 
-        models.DataManager.cameraOffsetX += directions[models.EntityManager.mainCharacter.direction][0]
-        models.DataManager.cameraOffsetY += directions[models.EntityManager.mainCharacter.direction][1]
-
-    else:
-        models.EntityManager.mainCharacter.animationIndex = 'Idle'
 
 def keyUpdate():
     speed = 0.003

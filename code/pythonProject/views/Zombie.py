@@ -2,7 +2,6 @@ from views.Creature import Creature
 
 from utility import *
 
-import models.DataManager
 import models.EntityManager
 
 class Zombie(Creature):
@@ -25,9 +24,19 @@ class Zombie(Creature):
             else:
                 self.setAnimationIndex('Idle')
 
-        
+    
+    def move(self, dx, dy):
+        super().move(dx, dy)        
+        if dx > 0:
+            self.direction = 0
+        elif dy > 0:
+            self.direction = 2
+        elif dx < 0:
+            self.direction = 4
+        elif dy < 0:
+            self.direction = 6
+
     def updateRoute(self):
-        print(f"Zombie at {self.position} updating route to main character at {models.EntityManager.mainCharacter.position}")
         self.route = bfs(tuple(self.position), tuple(models.EntityManager.mainCharacter.position), [])
         if len(self.route) > 0:
             self.dx, self.dy = self.route[0][0] * 0.003, self.route[0][1] * 0.006

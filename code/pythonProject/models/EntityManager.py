@@ -1,9 +1,7 @@
-import pygame
-
 from views.Creature import *
 from views.Zombie import *
 
-mainCharacter = Player(r'C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\Survivor 2')
+mainCharacter = Player('Survivor 2')
 
 #testZombie = Zombie(r"C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\RuralZombie 1")
 
@@ -11,7 +9,7 @@ mainCharacter = Player(r'C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animati
 zombies = []
 
 def spawnZombie(postion=[0, 0]):
-    zombie = Zombie(r"C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow\RuralZombie 1",postion)
+    zombie = Zombie("RuralZombie 1",postion)
     zombie.updateRoute()
     zombies.append(zombie)
 
