@@ -55,19 +55,19 @@ class Entity(pygame.sprite.Sprite):
         self.position[1] = position[1]
         #self.updateScreenPosition()
 
-    def updateScreenPosition(self):
-        actualX = self.position[0]
+    # def updateScreenPosition(self):
+    #     actualX = self.position[0]
 
-        if int(self.position[1]) % 2 != 0:
-            actualX -= 0.5
+    #     if int(self.position[1]) % 2 != 0:
+    #         actualX -= 0.5
 
-        screenX, screenY = iso_to_screen_staggered(
-            actualX, self.position[1], 128, 128,
-            models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY
-        )
+    #     screenX, screenY = iso_to_screen_staggered(
+    #         actualX, self.position[1], 128, 128,
+    #         models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY
+    #     )
 
-        self.rect.x = int(screenX)
-        self.rect.y = int(screenY - (128 - 64))
+    #     self.rect.x = int(screenX)
+    #     self.rect.y = int(screenY - (128 - 64))
 
     def getScreenPosition(self):
         actualX = self.position[0]
@@ -77,9 +77,11 @@ class Entity(pygame.sprite.Sprite):
         return (actualX, self.position[1])
 
     def updateAnimation(self):
-        rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
-        self.image = models.DataManager.spriteSheet[self.animationDir][self.animationIndex].subsurface(rect)
-        self.image = self.image.subsurface(30, 25, 80, 65)
+        #rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
+        #self.image = models.DataManager.spriteSheet[self.animationDir][self.animationIndex].subsurface(rect)
+
+        self.image = models.DataManager.spriteSheet[self.animationDir][self.animationIndex][self.direction][self.frameIndex]
+        #self.image = self.image.subsurface(30, 25, 80, 65)
 
     def update(self):
         now = pygame.time.get_ticks()
@@ -88,7 +90,7 @@ class Entity(pygame.sprite.Sprite):
             self.frameIndex = (self.frameIndex + 1) % 15
             self.updateAnimation()
 
-            self.rect = self.image.get_rect()
+            #self.rect = self.image.get_rect()
 
         #self.updateScreenPosition()
 

@@ -24,6 +24,13 @@ def loadSpriteSheet(directory):
             if folderName not in spriteSheet:
                 spriteSheet[folderName] = {}
             print(f"Loading {fileName} from {folderName}")
-            spriteSheet[folderName][fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(directory, folderName, fileName)).convert_alpha()
+            #spriteSheet[folderName][fileName[:fileName.find('.')]] = pygame.image.load(os.path.join(directory, folderName, fileName)).convert_alpha()
+            fullSpriteSheet = pygame.image.load(os.path.join(directory, folderName, fileName)).convert_alpha()
+            spriteSheet[folderName][fileName[:fileName.find('.')]] = [[None] * 15 for _ in range(8)]
+            for direction in range(8):
+                for frameIndex in range(15):
+                    rect = pygame.Rect(frameIndex * 128, direction * 128, 128, 128)
+                    spriteSheet[folderName][fileName[:fileName.find('.')]][direction][frameIndex] = fullSpriteSheet.subsurface(rect).subsurface(30, 25, 80, 65)
+
 
 loadSpriteSheet(r'C:\Desktop\BlockDead\2D HD Zombie Rural Tileset\Animations\Spritesheets\With shadow')

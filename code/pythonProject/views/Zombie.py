@@ -23,6 +23,12 @@ class Zombie(Creature):
                     if len(self.route) > 0:
                         self.dx, self.dy = self.route[0][0] * 0.003, self.route[0][1] * 0.006
                         self.way = (self.route[0][0], self.route[0][1] )
+            elif abs(self.position[0] - models.EntityManager.mainCharacter.position[0]) > 0.5:
+                self.setAnimationIndex('Run')
+                self.move(-abs(self.position[0] - models.EntityManager.mainCharacter.position[0]) / (self.position[0] - models.EntityManager.mainCharacter.position[0]) * 0.003, 0)
+            elif abs(self.position[1] - models.EntityManager.mainCharacter.position[1]) > 0.5:
+                self.setAnimationIndex('Run')
+                self.move(0, -abs(self.position[1] - models.EntityManager.mainCharacter.position[1]) / (self.position[1] - models.EntityManager.mainCharacter.position[1]) * 0.003)
             else:
                 self.setAnimationIndex('Idle')
 

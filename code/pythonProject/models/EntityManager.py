@@ -10,7 +10,6 @@ zombies = []
 
 def spawnZombie(postion=[0, 0]):
     zombie = Zombie("RuralZombie 1",postion)
-    zombie.health = 0
     zombie.updateRoute()
     zombies.append(zombie)
 
