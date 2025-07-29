@@ -10,14 +10,15 @@ zombies = []
 
 def spawnZombie(postion=[0, 0]):
     zombie = Zombie("RuralZombie 1",postion)
+    zombie.health = 0
     zombie.updateRoute()
     zombies.append(zombie)
 
 def updateZombies():
     for zombie in zombies:
         zombie.update()
-        #if zombie.isDead():
-        #    zombies.remove(zombie)
+        if zombie.dead:
+           zombies.remove(zombie)
 
 def updateZombieRoutes():
     for zombie in zombies:

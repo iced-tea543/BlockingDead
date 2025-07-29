@@ -28,13 +28,21 @@ def mouseUpdate():
     if distance((400, 300), mousePosition) < 50:
         models.EntityManager.mainCharacter.animationIndex = 'Idle'
     else:
-        models.EntityManager.mainCharacter.animationIndex = 'Run'
-        models.EntityManager.mainCharacter.direction = int(angle_deg / 45 + 8 if angle_deg / 45 < 0 else angle_deg / 45)
-        # print(f"Move: {directions[models.EntityManager.mainCharacter.direction]} pixels, direction: {models.EntityManager.mainCharacter.direction}")
-        if models.EntityManager.mainCharacter.move(directions[models.EntityManager.mainCharacter.direction][0], directions[models.EntityManager.mainCharacter.direction][1] * 2):
-            models.DataManager.cameraOffsetX += directions[models.EntityManager.mainCharacter.direction][0] * 128
-            models.DataManager.cameraOffsetY += directions[models.EntityManager.mainCharacter.direction][1] * 64
-        models.EntityManager.updateZombieRoutes()
+        for event in pygame.event.get():
+            if (event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP) and event.button == 1:
+                models.EntityManager.mainCharacter.frameIndex = 0
+        if pygame.mouse.get_pressed()[0]:
+            models.EntityManager.mainCharacter.animationIndex = 'Attack1'
+            models.EntityManager.mainCharacter.animationInterval = 100
+        else:
+            models.EntityManager.mainCharacter.animationInterval = 50
+            models.EntityManager.mainCharacter.animationIndex = 'Run'
+            models.EntityManager.mainCharacter.direction = int(angle_deg / 45 + 8 if angle_deg / 45 < 0 else angle_deg / 45)
+            # print(f"Move: {directions[models.EntityManager.mainCharacter.direction]} pixels, direction: {models.EntityManager.mainCharacter.direction}")
+            if models.EntityManager.mainCharacter.move(directions[models.EntityManager.mainCharacter.direction][0], directions[models.EntityManager.mainCharacter.direction][1] * 2):
+                models.DataManager.cameraOffsetX += directions[models.EntityManager.mainCharacter.direction][0] * 128
+                models.DataManager.cameraOffsetY += directions[models.EntityManager.mainCharacter.direction][1] * 64
+            models.EntityManager.updateZombieRoutes()
 
 
 def keyUpdate():

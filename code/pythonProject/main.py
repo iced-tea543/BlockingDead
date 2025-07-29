@@ -12,6 +12,13 @@ models.EntityManager.spawnZombie((0, 2))
 from controllers.MouseControl import mouseUpdate, keyUpdate
 
 while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    if not running:
+        break
+    
     clearScreen()
     renderMap(models.DataManager.tile.tileToDraw, models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY)
 
@@ -45,8 +52,5 @@ while running:
     keyUpdate()
     pygame.display.flip()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
 
 pygame.quit()

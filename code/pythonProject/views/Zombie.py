@@ -10,6 +10,8 @@ class Zombie(Creature):
 
     def update(self):
         super().update()
+        if self.health <= 0:
+            return
         if distance(self.position, models.EntityManager.mainCharacter.position) < 50:
             if len(self.route) > 0:
                 self.setAnimationIndex('Run')

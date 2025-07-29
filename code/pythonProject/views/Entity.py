@@ -9,16 +9,17 @@ camera_offset_x = -(400-64)
 camera_offset_y = -(300-64)
 
 class Entity(pygame.sprite.Sprite):
-    def __init__(self, animationDir, animationIndex, animationSpeed, position):
+    def __init__(self, animationDir, animationIndex, animationInterval, position):
         super().__init__()
 
         self.animationDir = animationDir
         self.animationIndex = animationIndex
-        self.animationSpeed = animationSpeed
+        self.animationInterval = animationInterval
 
         #self.spriteSheet = {}
         self.direction = 0
         self.frameIndex = 0
+
         self.lastUpdateTime = pygame.time.get_ticks()
 
         #self.loadAnimation()
@@ -78,11 +79,11 @@ class Entity(pygame.sprite.Sprite):
     def updateAnimation(self):
         rect = pygame.Rect(self.frameIndex * 128, self.direction * 128, 128, 128)
         self.image = models.DataManager.spriteSheet[self.animationDir][self.animationIndex].subsurface(rect)
-        self.image = self.image.subsurface(40, 35, 70, 55)
+        self.image = self.image.subsurface(30, 25, 80, 65)
 
     def update(self):
         now = pygame.time.get_ticks()
-        if now - self.lastUpdateTime >= self.animationSpeed:
+        if now - self.lastUpdateTime >= self.animationInterval:
             self.lastUpdateTime = now
             self.frameIndex = (self.frameIndex + 1) % 15
             self.updateAnimation()
