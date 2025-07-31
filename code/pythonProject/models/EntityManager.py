@@ -1,5 +1,6 @@
 from views.Creature import *
 from views.Zombie import *
+import random
 
 mainCharacter = Player('Survivor 2')
 
@@ -8,8 +9,8 @@ mainCharacter = Player('Survivor 2')
 
 zombies = []
 
-def spawnZombie(postion=[0, 0]):
-    zombie = Zombie("RuralZombie 1",postion)
+def spawnZombie(postion=Vec2d(0, 0)):
+    zombie = Zombie(f"RuralZombie {random.randint(1, 5)}", postion, speed=random.randint(5, 15) / 1000)
     zombie.updateRoute()
     zombies.append(zombie)
 

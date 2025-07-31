@@ -1,5 +1,4 @@
 import pygame
-import os
 
 from utility import *
 
@@ -26,7 +25,7 @@ class Entity(pygame.sprite.Sprite):
         
         self.updateAnimation()
 
-        self.position = [int(position[0]), int(position[1])]
+        self.position = Vec2d(int(position[0]), int(position[1]))
 
     #def loadAnimation(self):
     #    for fileName in os.listdir(self.animationDir):

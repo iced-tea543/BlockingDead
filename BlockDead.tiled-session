@@ -9,16 +9,16 @@
     ],
     "fileStates": {
         "BlockDead.tmx": {
-            "scale": 0.75,
-            "selectedLayer": 2,
+            "scale": 0.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 758,
-                "y": 648.6666666666666
+                "x": 2243,
+                "y": 1461
             }
         },
         "Resource.tsx": {
             "dynamicWrapping": true,
-            "scaleInDock": 0.33
+            "scaleInDock": 0.25
         },
         "hu.tsx": {
             "dynamicWrapping": false,

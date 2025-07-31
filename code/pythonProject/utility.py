@@ -1,5 +1,38 @@
 import math
 
+class Vec2d:
+    def __init__(self, x = 0, y = 0):
+        self.x = x
+        self.y = y
+
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        else:
+            raise IndexError("Vector index out of range")
+
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x = value
+        elif index == 1:
+            self.y = value
+        else:
+            raise IndexError("Vector index out of range")
+
+    def __add__(self, other):
+        if isinstance(other, Vec2d):
+            return Vec2d(self.x + other.x, self.y + other.y)
+        return None
+
+    def __sub__(self, other):
+        if isinstance(other, Vec2d):
+            return Vec2d(self.x - other.x, self.y - other.y)
+        return None
+
+    def __repr__(self):
+        return f"Vec2d(x={self.x}, y={self.y})"
 
 def iso_to_screen_staggered(mapX, mapY, logicTileWidth, logicTileHeight,
                             camera_offset_x=0, camera_offset_y=0):
@@ -50,17 +83,20 @@ def distance(start, end):
 
 delta = 0.25
 
-def pointOnLine(start, end, point):
-    if not(min(start[0], end[0]) <= point[0] <= max(start[0], end[0])
-           and min(start[1], end[1]) <= point[1] <= max(start[1], end[1])):
-        return False
+def distanceToLine(start, end, point):
     x1, y1 = start
     x2, y2 = end
     x0, y0 = point
     numerator = abs((y2 - y1)*x0 - (x2 - x1)*y0 + x2*y1 - y2*x1)
     denominator = math.hypot(y2 - y1, x2 - x1)
-    dist = numerator / denominator if denominator != 0 else float('inf')
-    return dist < delta
+    return numerator / denominator if denominator != 0 else float('inf')
+
+def pointOnLine(start, end, point):
+    if not(min(start[0], end[0]) <= point[0] <= max(start[0], end[0])
+           and min(start[1], end[1]) <= point[1] <= max(start[1], end[1])):
+        return False
+    return distanceToLine(start, end, point) < delta
+
 
 import queue
 

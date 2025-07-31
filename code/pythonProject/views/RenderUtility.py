@@ -22,6 +22,8 @@ def renderMap(tileToDraw, cameraOffsetX, cameraOffsetY):
         blitX = screenX
         blitY = screenY - (tileImagePixelHeight - LOGIC_TILE_HEIGHT)
 
+        # if SCREEN.get_rect().colliderect(pygame.Rect(blitX, blitY, tileImagePixelWidth, tileImagePixelHeight)):
+        #     SCREEN.blit(tileImage, (blitX, blitY))
         if -tileImagePixelWidth < blitX < SCREEN_WIDTH + tileImagePixelWidth and \
                 -tileImagePixelHeight < blitY < SCREEN_HEIGHT + tileImagePixelHeight:
             SCREEN.blit(tileImage, (blitX, blitY))
