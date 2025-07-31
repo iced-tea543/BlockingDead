@@ -1,8 +1,8 @@
 from cmu_graphics import *
 from models.MapLoader import GameMap
 
-from views.Creature import *
-from views.Zombie import *
+from models.Creature import *
+from models.Zombie import *
 
 def onAppStart(app):
     # map = GameMap(r'C:\Desktop\BlockDead\Resource.tsx', r"C:\Desktop\BlockDead\BlockDead_terrain.csv")

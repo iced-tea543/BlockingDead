@@ -1,8 +1,8 @@
 import pygame
 from utility import *
-from views.Entity import Entity
+from models.Entity import Entity
 import views.RenderUtility
-import models.EntityManager
+import models.DataManager
 
 class Creature(Entity):
     def __init__(self, animationDir, healthMax, position):
@@ -45,14 +45,19 @@ class Player(Creature):
         super().__init__(animationDir, 6, position)
         self.attackDx = 0
         self.attackDy = 0
+        self.dx = 1
+        self.dy = 1
 
     def move(self, dx, dy):
-        #print(self.position)
+        print(self.position)
         return super().move(dx, dy)
     
     def update(self):
+        if self.dead:
+            models.DataManager.runningStatus = 2
+            return
         if self.animationIndex == 'Attack1' and self.frameIndex == 0:
-            for zombie in models.EntityManager.zombies:
+            for zombie in models.DataManager.zombies:
                 screenX, screenY = iso_to_screen_staggered(*zombie.getScreenPosition(), 128, 64,models.DataManager.cameraOffsetX, models.DataManager.cameraOffsetY)
                 #zombie.hurted = True
                 blitX = screenX

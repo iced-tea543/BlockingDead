@@ -36,12 +36,12 @@ class Entity(pygame.sprite.Sprite):
         self.position[0] += dx
         self.position[1] += dy
 
-        flag = False
+        unwalkable = self.position[0] < 0 or self.position[0] > 100 or self.position[1] < 0 or self.position[1] > 100
         for p1, p2 in models.DataManager.boundaries:
-            if pointOnLine(p1, p2, self.position):
-                flag = True
+            if pointOnLine(p1, p2, self.position, 0.25):
+                unwalkable = True
 
-        if flag:
+        if unwalkable:
             self.position[0] -= dx
             self.position[1] -= dy
             return False

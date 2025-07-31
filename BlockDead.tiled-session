@@ -9,11 +9,11 @@
     ],
     "fileStates": {
         "BlockDead.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 3,
+            "scale": 0.33,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 2243,
-                "y": 1461
+                "x": 3219.69696969697,
+                "y": 1262.1212121212122
             }
         },
         "Resource.tsx": {

@@ -34,6 +34,8 @@ class Vec2d:
     def __repr__(self):
         return f"Vec2d(x={self.x}, y={self.y})"
 
+
+#This function is created by Gemini. Prompt: "Create a function that converts isometric coordinates to screen coordinates for a staggered isometric grid."
 def iso_to_screen_staggered(mapX, mapY, logicTileWidth, logicTileHeight,
                             camera_offset_x=0, camera_offset_y=0):
     base_screenX = mapX * logicTileWidth
@@ -91,7 +93,7 @@ def distanceToLine(start, end, point):
     denominator = math.hypot(y2 - y1, x2 - x1)
     return numerator / denominator if denominator != 0 else float('inf')
 
-def pointOnLine(start, end, point):
+def pointOnLine(start, end, point, delta=0.25):
     if not(min(start[0], end[0]) <= point[0] <= max(start[0], end[0])
            and min(start[1], end[1]) <= point[1] <= max(start[1], end[1])):
         return False
@@ -99,8 +101,10 @@ def pointOnLine(start, end, point):
 
 
 import queue
+from models.DataManager import boundaries
 
-def bfs(start, end, blockers):
+#This function is revised from auto-generated code filled by vscode AI without prompt.
+def bfs(start, end):
     start = (int(start[0] + 0.5), int(start[1] + 0.5))
     end = (int(end[0] + 0.5), int(end[1] + 0.5))
     q = queue.Queue()
@@ -121,9 +125,16 @@ def bfs(start, end, blockers):
 
         for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
             neighbor = (current[0] + dx, current[1] + dy)
-            if not(0 <= neighbor[0] < 50 and 0 <= neighbor[1] < 50):
+            
+            unwalkable = False
+            for p1, p2 in boundaries:
+                if pointOnLine(p1, p2, neighbor, 0.15):
+                    unwalkable = True
+            #this sometimes causes the bfs return None, without this, the zombie will get stuck
+
+            if not(0 <= neighbor[0] < 100 and 0 <= neighbor[1] < 100):
                 continue
-            if neighbor not in visited and neighbor not in blockers:
+            if neighbor not in visited:
                 q.put(neighbor)
                 parent[neighbor] = current
                 visited.add(neighbor)

@@ -8,11 +8,12 @@ SCREEN_HEIGHT = 600
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 LOGIC_TILE_WIDTH = 128
-LOGIC_TILE_HEIGHT = 64  # Tiled 中的逻辑瓦片高度
+LOGIC_TILE_HEIGHT = 64 
 
 def clearScreen():
     SCREEN.fill((0, 0, 0))
 
+#This function is created by Gemini.
 def renderMap(tileToDraw, cameraOffsetX, cameraOffsetY):
     for tileInfo in sorted(tileToDraw, key=lambda tileInfo: (tileInfo[1], tileInfo[0])):
 
